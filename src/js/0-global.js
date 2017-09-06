@@ -144,7 +144,16 @@ function loadJSON(repo, filename, callback) {
       xobj.status != '200' && // if the status is NOT 'ok', remove the loading dots, and display an error:
       xobj.status != '0') { // for IE a cross domain request has status 0, we're going to execute this block fist, than the above as well.
       loading.innerHTML = '';
-      document.getElementById('error-container').innerHTML = '<p>Error... there\'s a problem fetching the releases. Please see the <a href=\'https://github.com/AdoptOpenJDK/openjdk-releases/releases\' target=\'blank\'>releases list on GitHub</a>.</p>';
+
+      repo = repo.split('-')[0]
+      if(repo == 'openj9'){
+        document.getElementById('error-container').innerHTML = '<p> Builds for ' + repo + ' are coming soon!' ;
+        document.getElementById('error-container').style.color = '#fff';
+        document.getElementById('error-container').classList.add('alert');
+      }
+
+      //document.getElementById('error-container').innerHTML = '<p>Error... there\'s a problem fetching the releases. Please see the <a href=\'https://github.com/AdoptOpenJDK/openjdk-releases/releases\' target=\'blank\'>releases list on GitHub</a>.</p>';
+
     }
   };
   xobj.send(null);
